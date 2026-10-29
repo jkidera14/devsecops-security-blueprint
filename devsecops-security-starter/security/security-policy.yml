@@ -1,0 +1,41 @@
+policy_version: 1
+release_gates:
+  secret_scan:
+    block_on_confirmed_secret: true
+  sast:
+    block_on:
+      - high
+      - critical
+    require_triage: true
+  dependencies:
+    block_on:
+      - critical
+      - high
+    allow_unfixed_exception: documented_expiring_exception
+  container:
+    block_on:
+      - critical
+      - high
+    ignore_unfixed: true
+  iac:
+    block_on:
+      - critical
+      - high
+  production:
+    require:
+      - protected_branch
+      - pull_request_approval
+      - required_status_checks
+      - environment_approval
+      - immutable_artifact
+      - rollback_plan
+exceptions:
+  required_fields:
+    - id
+    - finding
+    - rationale
+    - compensating_control
+    - owner
+    - created
+    - expires
+    - remediation_issue

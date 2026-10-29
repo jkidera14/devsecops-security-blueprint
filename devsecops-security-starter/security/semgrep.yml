@@ -1,0 +1,12 @@
+rules:
+  - id: avoid-eval
+    pattern: eval(...)
+    message: Avoid eval; it can introduce code injection.
+    languages: [javascript, typescript, python]
+    severity: ERROR
+  - id: no-hardcoded-password
+    patterns:
+      - pattern: $X = "$PASSWORD"
+    message: Do not hard-code credentials.
+    languages: [javascript, typescript, python]
+    severity: ERROR

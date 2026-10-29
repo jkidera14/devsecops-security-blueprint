@@ -1,0 +1,53 @@
+name: Container Security and SBOM (Template)
+
+on:
+  workflow_dispatch:
+    inputs:
+      image:
+        description: Full image reference including immutable tag
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  scan-sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate image input
+        env:
+          IMAGE: ${{ inputs.image }}
+        run: |
+          set -euo pipefail
+          [[ "$IMAGE" == *@sha256:* ]] || [[ "$IMAGE" =~ :[0-9a-f]{40,64}$ ]] || {
+            echo "::error::Use an immutable digest or full commit-SHA tag."
+            exit 1
+          }
+      - name: Scan image
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ${{ inputs.image }}
+          vuln-type: os,library
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          image: ${{ inputs.image }}
+          format: cyclonedx-json
+          output-file: sbom.cdx.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.cdx.json
+          if-no-files-found: error
+          retention-days: 90
+
+# This workflow does not build or publish an image. Add those steps only after
+# deciding registry authentication, immutable tagging, signing, and provenance.
+# For production, pin every third-party action to a verified full commit SHA.

@@ -1,0 +1,12 @@
+title = "Repository secret detection policy"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Only narrowly justified, reviewed false positives belong here."
+paths = [
+  '''(^|/)docs/.*example.*$''',
+  '''(^|/)security/exception-register\.example\.yml$'''
+]
+# Do not add broad regexes or entire directories just to make CI green.

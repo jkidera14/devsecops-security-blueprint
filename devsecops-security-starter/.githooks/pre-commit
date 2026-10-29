@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+# Lightweight local guard; CI is authoritative.
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks protect --staged --config security/gitleaks.toml
+else
+  echo "WARNING: gitleaks is not installed; install it before committing." >&2
+fi
+if command -v detect-secrets >/dev/null 2>&1; then
+  detect-secrets-hook
+fi

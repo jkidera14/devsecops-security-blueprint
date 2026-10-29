@@ -1,0 +1,14 @@
+severity:
+  - HIGH
+  - CRITICAL
+ignore-unfixed: true
+scan:
+  skip-dirs:
+    - .git
+    - node_modules
+    - .terraform
+misconfiguration:
+  scanners:
+    - misconfig
+secret:
+  config: security/gitleaks.toml

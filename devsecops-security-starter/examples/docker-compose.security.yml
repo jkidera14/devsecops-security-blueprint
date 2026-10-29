@@ -1,0 +1,17 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: examples/Dockerfile
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp
+    pids_limit: 200
+    mem_limit: 512m
+    cpus: 1.0
+    ports:
+      - "127.0.0.1:3000:3000"

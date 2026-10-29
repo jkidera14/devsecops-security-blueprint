@@ -1,0 +1,10 @@
+exceptions:
+  - id: SEC-EXAMPLE-001
+    finding: "TOOL-FINDING-ID"
+    rationale: "Document the specific business reason; do not use 'false positive' without evidence."
+    compensating_control: "Describe the control that reduces the risk while remediation is pending."
+    owner: "team-or-person"
+    created: "2026-01-01"
+    expires: "2026-02-01"
+    remediation_issue: "https://github.com/ORG/REPO/issues/123"
+    status: "example-only"

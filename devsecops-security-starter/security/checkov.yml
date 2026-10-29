@@ -1,0 +1,5 @@
+compact: true
+quiet: true
+soft-fail: false
+# Do not globally skip checks. Use narrowly scoped suppressions with rationale,
+# owner, ticket, and expiry date in code comments or an exception register.

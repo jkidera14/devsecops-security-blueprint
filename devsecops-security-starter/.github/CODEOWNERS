@@ -1,0 +1,8 @@
+# Replace these examples with real GitHub usernames or teams.
+* @REPLACE_ORG/engineering
+/.github/ @REPLACE_ORG/platform-security
+/security/ @REPLACE_ORG/platform-security
+/policies/ @REPLACE_ORG/platform-security
+/infrastructure/ @REPLACE_ORG/cloud-platform
+/terraform/ @REPLACE_ORG/cloud-platform
+/deploy/ @REPLACE_ORG/platform-security
